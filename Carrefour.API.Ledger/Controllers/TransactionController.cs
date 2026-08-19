@@ -1,3 +1,5 @@
+using Carrefour.API.Ledger.DTOs;
+using Carrefour.API.Ledger.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -7,16 +9,22 @@ namespace Carrefour.API.Ledger.Controllers
     [Route("[controller]")]
     public class TransactionController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        private readonly ILedgerActivityService _ledgerActivityService;
+        public TransactionController(ILedgerActivityService ledgerActivityService)
         {
-            return Ok();
+            _ledgerActivityService = ledgerActivityService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<LedgerActivityDTO>>> GetAll(CancellationToken ct)
+        {
+            return Ok(await _ledgerActivityService.ReadAllAsync(ct));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<ActionResult<LedgerActivityDTO>> Post([FromBody] CreateLedgerActivityDTO createLedgerActivityDTO, CancellationToken ct)
         {
-            return Ok();
+            return Ok(await _ledgerActivityService.CreateAsync(createLedgerActivityDTO, ct));
         }
     }
 }
