@@ -1,5 +1,6 @@
 using Carrefour.API.BusinessIntelligence.Models;
 using Carrefour.API.BusinessIntelligence.Repositories;
+using Carrefour.API.BusinessIntelligence.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +17,17 @@ builder.Services.AddDbContext<Context>(optionsBuilder =>
     optionsBuilder.UseNpgsql(connectionString);
 });
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    string redisHost = builder.Configuration[$"ConnectionStrings:redisHost"];
+    string redisPassword = builder.Configuration[$"ConnectionStrings:redisPassword"];
+    options.Configuration = $"{redisHost},password={redisPassword}";
+    options.InstanceName = "CarrefourBI_"; // Optional prefix for keys
+});
+
 builder.Services.AddScoped<IDailyConsolidatedRepository, DailyConsolidatedRepository>();
 builder.Services.AddScoped<IDailyConsolidatedService, DailyConsolidatedService>();
+builder.Services.Decorate<IDailyConsolidatedService, CachedDailyConsolidatedService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
