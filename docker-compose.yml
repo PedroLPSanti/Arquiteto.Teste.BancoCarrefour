@@ -10,7 +10,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__dbHost=postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+
   business-intelligence-api:
     build:
       context: ./Carrefour.API.BusinessIntelligence
@@ -23,8 +25,11 @@ services:
       - ConnectionStrings__dbHost=postgres
       - ConnectionStrings__redisHost=redis:6379
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
   business-intelligence-etl:
     build:
       context: ./Carrefour.ETL.BusinessIntelligence
@@ -35,7 +40,13 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__dbHost=postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+      ledger-api:
+        condition: service_started
+      business-intelligence-api:
+        condition: service_started
+
   postgres:
     image: postgres:18-alpine
     container_name: postgres_db
@@ -50,6 +61,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     shm_size: 128mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d db_carrefour"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   redis:
     image: redis:7.4-alpine
     container_name: redis_server
