@@ -23,6 +23,17 @@ services:
       - ConnectionStrings__dbHost=postgres
     depends_on:
       - postgres
+  business-intelligence-etl:
+    build:
+      context: ./Carrefour.ETL.BusinessIntelligence
+      dockerfile: Dockerfile
+    container_name: business-intelligence-etl
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__dbHost=postgres
+    depends_on:
+      - postgres
   postgres:
     image: postgres:18-alpine
     container_name: postgres_db
