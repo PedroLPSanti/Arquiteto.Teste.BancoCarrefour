@@ -7,15 +7,15 @@ diário consolidado.
 • Serviço que faça o controle de lançamentos<br>
 • Serviço do consolidado diário<br>
 ### Requisitos técnicos obrigatórios
-• Desenho da solução<br>
-• Deve ser feito usando C#<br>
-• Testes<br>
+• Desenho da solução - Falta<br>
+• Deve ser feito usando C# - OK<br>
+• Testes - Falta<br>
 • Boas praticas são bem vindas (Design Patterns, Padrões de Arquitetura,
-SOLID e etc)<br>
+SOLID e etc) - OK<br>
 • Readme com instruções claras de como a aplicação funciona, e como rodar
-localmente<br>
-• Hospedar em repositório publico (GitHub)<br>
-• Todas as documentações de projeto devem estar no repositório<br><br>
+localmente - Falta<br>
+• Hospedar em repositório publico (GitHub) OK<br>
+• Todas as documentações de projeto devem estar no repositório - Falta<br><br>
 _Caso os requisitos técnicos obrigatórios não sejam minimamente atendidos, o
 teste será descartado._
 ### Requisitos não funcionais
