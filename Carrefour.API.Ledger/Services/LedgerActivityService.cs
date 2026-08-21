@@ -1,9 +1,8 @@
 ﻿using Carrefour.API.Ledger.DTOs;
 using Carrefour.API.Ledger.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Carrefour.API.Ledger.Repositories;
 
-namespace Carrefour.API.Ledger.Repositories
+namespace Carrefour.API.Ledger.Services
 {
     public class LedgerActivityService : ILedgerActivityService
     {

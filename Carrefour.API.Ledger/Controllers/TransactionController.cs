@@ -1,7 +1,6 @@
 using Carrefour.API.Ledger.DTOs;
-using Carrefour.API.Ledger.Repositories;
+using Carrefour.API.Ledger.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Carrefour.API.Ledger.Controllers
 {
@@ -24,7 +23,8 @@ namespace Carrefour.API.Ledger.Controllers
         [HttpPost]
         public async Task<ActionResult<LedgerActivityDTO>> Post([FromBody] CreateLedgerActivityDTO createLedgerActivityDTO, CancellationToken ct)
         {
-            return Ok(await _ledgerActivityService.CreateAsync(createLedgerActivityDTO, ct));
+            var result = await _ledgerActivityService.CreateAsync(createLedgerActivityDTO, ct);
+            return CreatedAtAction("New Posting on Ledger", result);
         }
     }
 }

@@ -2,7 +2,7 @@
 using Carrefour.API.Ledger.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Carrefour.API.Ledger.Repositories
+namespace Carrefour.API.Ledger.Services
 {
     public interface ILedgerActivityService
     {

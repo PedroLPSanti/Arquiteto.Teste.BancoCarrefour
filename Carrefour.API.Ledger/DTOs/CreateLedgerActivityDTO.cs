@@ -9,6 +9,7 @@ namespace Carrefour.API.Ledger.DTOs
 {
     public class CreateLedgerActivityDTO
     {
+        private decimal _value;
         public CreateLedgerActivityDTO() { }
         public CreateLedgerActivityDTO(LedgerActivity ledgerActivity)
         {
@@ -21,6 +22,17 @@ namespace Carrefour.API.Ledger.DTOs
         public OperationEnum operation { get; set; }
         [Required]
         [Range(0.01, (double)decimal.MaxValue, ErrorMessage = "Value must be 0.01 or greater.")]
-        public decimal value { get; set; }
+        public decimal value
+        {
+            get => _value;
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Value must be greater than or equal to 0.01.");
+                }
+                _value = value;
+            }
+        }
     }
 }

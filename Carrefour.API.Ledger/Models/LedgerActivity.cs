@@ -32,9 +32,9 @@ namespace Carrefour.API.Ledger.Models
             get => _value;
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Value must be greater than or equal to 0.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Value must be greater than or equal to 0.01.");
                 }
                 _value = value;
             }

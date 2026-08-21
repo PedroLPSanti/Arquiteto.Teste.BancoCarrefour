@@ -1,5 +1,6 @@
 using Carrefour.API.Ledger.Models;
 using Carrefour.API.Ledger.Repositories;
+using Carrefour.API.Ledger.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
