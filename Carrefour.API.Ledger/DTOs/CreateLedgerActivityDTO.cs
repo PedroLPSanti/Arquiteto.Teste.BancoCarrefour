@@ -20,7 +20,7 @@ namespace Carrefour.API.Ledger.DTOs
         [EnumDataType(typeof(OperationEnum), ErrorMessage = "Invalid operation. Must be 0 (DEBIT) or 1 (CREDIT).")]
         public OperationEnum operation { get; set; }
         [Required]
-        [Range(0, (double)decimal.MaxValue, ErrorMessage = "Value must be 0 or greater.")]
+        [Range(0.01, (double)decimal.MaxValue, ErrorMessage = "Value must be 0.01 or greater.")]
         public decimal value { get; set; }
     }
 }
